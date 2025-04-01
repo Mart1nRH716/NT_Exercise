@@ -1,16 +1,14 @@
 FROM python:3.10
-
+ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
-# Install dependencies
+# Instalar dependencias del sistema
+RUN apt-get update && \
+    apt-get install -y \
+    default-libmysqlclient-dev \
+    python3-dev \
+    netcat-openbsd
+
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy project files
+RUN pip install -r requirements.txt
 COPY . .
-
-# Expose port for Django
-EXPOSE 8000
-
-# Command to run the application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
