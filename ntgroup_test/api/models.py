@@ -2,25 +2,25 @@ from django.db import models
 
 class NumberSet(models.Model):
     def __init__(self):
-        """Initialize a set of the first 100 natural numbers."""
+        """Iniciamos el listado de números con los primeros 100"""
         self.numbers = list(range(1, 101))
         self.extracted_number = None
     
     def extract(self, number):
         """
-        Extract a specific number from the set.
+        Extraer: Extrae un número específico
         
-        Args:
-            number: The number to extract (must be between 1 and 100)
+        Recibe:
+            Número a extraer comprendido entre 1-100
             
-        Returns:
-            bool: True if extraction was successful, False otherwise
+        Regresa:
+            Verdadero en caso de que fue exitoso la extracción del número, False en caso contrario
         """
         if not isinstance(number, int):
-            raise ValueError("Number must be an integer")
+            raise ValueError("Debe ser númerico")
         
         if number < 1 or number > 100:
-            raise ValueError("Number must be between 1 and 100")
+            raise ValueError("El número debe de estar entre 1-100")
         
         if number in self.numbers:
             self.numbers.remove(number)
@@ -30,17 +30,17 @@ class NumberSet(models.Model):
     
     def find_missing(self):
         """
-        Find the missing number in the set.
+        Encuentra el número perdido
         
-        Returns:
-            int: The missing number, or None if no number is missing
+        Regresa:
+            El número perdido
         """
         if len(self.numbers) == 100:
             return None
         
-        # Calculate the sum of all numbers from 1 to 100
-        expected_sum = 100 * 101 // 2  # Sum of arithmetic sequence
+        # Calculamos la suma que debe de tener la lista
+        suma_esp = 100 * 101 // 2  # (n * (n + 1)) /2
         actual_sum = sum(self.numbers)
         
-        # The missing number is the difference between expected and actual sum
-        return expected_sum - actual_sum
+        #Retornamos la diferencia ya que ese va ser el número faltante
+        return suma_esp - actual_sum

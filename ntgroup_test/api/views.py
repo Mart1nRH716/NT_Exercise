@@ -6,21 +6,20 @@ from .models import NumberSet
 import json
 
 def extract_number(request, number):
-    """API endpoint to extract a number from the URL path and find the missing one."""
+    """Endpoint de la API para extraer un número, extraer el numero desde el arg de la url"""
     if request.method == 'GET':
         try:
-            # Validate input
             if not isinstance(number, int):
-                return JsonResponse({'error': 'Number must be an integer'}, status=400)
+                return JsonResponse({'error': 'El número debe ser un entero'}, status=400)
             
             if number < 1 or number > 100:
-                return JsonResponse({'error': 'Number must be between 1 and 100'}, status=400)
+                return JsonResponse({'error': 'El número debe de estar entre 1-100'}, status=400)
             
-            # Create number set and extract number
+            #Extraemos el número
             number_set = NumberSet()
             number_set.extract(number)
             
-            # Find the missing number
+            #Encontramos el número faltante
             missing_number = number_set.find_missing()
             
             return JsonResponse({
@@ -32,6 +31,6 @@ def extract_number(request, number):
         except ValueError as e:
             return JsonResponse({'error': str(e)}, status=400)
         except Exception as e:
-            return JsonResponse({'error': 'An unexpected error occurred'}, status=500)
+            return JsonResponse({'error': 'Ocurrio un error inseperado'}, status=500)
     
-    return JsonResponse({'error': 'Method not allowed'}, status=405)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)

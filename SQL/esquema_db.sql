@@ -1,6 +1,5 @@
 CREATE DATABASE IF NOT EXISTS ntgroup_test;
 USE ntgroup_test;
-SELECT DISTINCT(created_at) FROM raw_data;
 
 CREATE TABLE IF NOT EXISTS companies ( 
 company_id VARCHAR(64) NOT NULL PRIMARY KEY, 
@@ -18,8 +17,8 @@ FOREIGN KEY (company_id) REFERENCES companies(company_id)
 );
 
 -- Tabla donde cargamos la información transformada para que podamos ver el monto total transaccionado por día para las diferentes compañías
--- suma del monto por dia
--- agrupado por compañia y por dia 
+-- suma del monto por día
+-- agrupado por compañia y por día 
 CREATE VIEW amount_company_perday AS (
 SELECT ch.company_id, c.company_name, SUM(ch.amount) AS total_amount, DATE(ch.created_at) AS transaction_day 
 FROM charges ch INNER JOIN companies c ON ch.company_id = c.company_id
