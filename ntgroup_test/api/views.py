@@ -9,9 +9,8 @@ def extract_number(request, number):
     """Endpoint de la API para extraer un número, extraer el numero desde el arg de la url"""
     if request.method == 'GET':
         try:
-            if not isinstance(number, int):
-                return JsonResponse({'error': 'El número debe ser un entero'}, status=400)
-            
+            number = int(number)
+                
             if number < 1 or number > 100:
                 return JsonResponse({'error': 'El número debe de estar entre 1-100'}, status=400)
             
@@ -29,7 +28,7 @@ def extract_number(request, number):
             })
             
         except ValueError as e:
-            return JsonResponse({'error': str(e)}, status=400)
+            return JsonResponse({'error': 'La entrada debe ser numérica'}, status=400)
         except Exception as e:
             return JsonResponse({'error': 'Ocurrio un error inseperado'}, status=500)
     

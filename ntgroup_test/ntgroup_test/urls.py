@@ -20,6 +20,6 @@ from api.views import extract_number
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('<int:number>/', extract_number, name='extract_number'),
+    path('<number>/', extract_number, name='extract_number'),
 ]
 

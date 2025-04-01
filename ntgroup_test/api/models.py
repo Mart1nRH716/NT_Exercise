@@ -8,19 +8,19 @@ class NumberSet(models.Model):
     
     def extract(self, number):
         """
-        Extraer: Extrae un número específico
+        Función: Extrae un número específico
         
         Recibe:
-            Número a extraer comprendido entre 1-100
+            Número comprendido entre 1-100
             
         Regresa:
-            Verdadero en caso de que fue exitoso la extracción del número, False en caso contrario
+            True en caso de que fue exitoso la extracción del número, False en caso contrario
         """
-        if not isinstance(number, int):
-            raise ValueError("Debe ser númerico")
+        # if not isinstance(number, int):
+        #     raise ValueError("Debe ser númerico")
         
-        if number < 1 or number > 100:
-            raise ValueError("El número debe de estar entre 1-100")
+        # if number < 1 or number > 100:
+        #     raise ValueError("El número debe de estar entre 1-100")
         
         if number in self.numbers:
             self.numbers.remove(number)
@@ -30,7 +30,7 @@ class NumberSet(models.Model):
     
     def find_missing(self):
         """
-        Encuentra el número perdido
+        Función: Encuentra el número perdido
         
         Regresa:
             El número perdido
@@ -39,7 +39,8 @@ class NumberSet(models.Model):
             return None
         
         # Calculamos la suma que debe de tener la lista
-        suma_esp = 100 * 101 // 2  # (n * (n + 1)) /2
+        longitud = len(self.numbers) + 1
+        suma_esp = (longitud * (longitud + 1)) // 2  # (n * (n + 1)) /2
         actual_sum = sum(self.numbers)
         
         #Retornamos la diferencia ya que ese va ser el número faltante
