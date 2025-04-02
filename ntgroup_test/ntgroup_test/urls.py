@@ -16,10 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import extract_number
+from api.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('<number>/', extract_number, name='extract_number'),
+    path('cargar-csv/', CargarCSVView.as_view(), name='cargar-csv'),
+    path('extraer-datos/', ExtraerDatosView.as_view(), name='extraer-datos'),
+    path('transformar-datos/', TransformarDatosView.as_view(), name='transformar-datos'),
+    path('poblar/', CargarDatosTransformadosView.as_view(), name='cargar-datos-transformados'),
+    path('crear-esquemas/', EjecutarEsquemasView.as_view(), name='crear-esquemas'),
+    path('app/<number>/', extract_number, name='extract_number'),
+    
+    
 ]
 
